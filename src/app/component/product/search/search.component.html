@@ -1,0 +1,105 @@
+<div class="breadcrumb">
+  <ul>
+    <li><a [routerLink]="['/index']"><span><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</span></a></li>
+    <li><span>{{ q }}</span></li>
+  </ul>
+</div>
+
+<div class="custom-loading" *ngIf="isLoading">
+  <div class="lds-facebook">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<div class="section" *ngIf="!isLoading && products != null">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-title text-center">
+          <h5 class="title">KẾT QUẢ CHO TỪ KHÓA "{{ q }}"</h5>
+        </div>
+      </div>
+      <section class="product-filters-wrap">
+        <div class="product-filters">
+          <div class="container-lt">
+            <ul class="filters-group">
+              <div class="sort">
+              </div>
+              <div class="filters">
+                <ng-container *ngFor="let key of keys">
+                  <li (mouseenter)="mouseEnter(key)" (mouseleave)="mouseLeave(key)">
+                    <a class="filter-item" href="javascript:void(0);">{{ key | formatAttr }}</a>
+                    <div class="dropdown-options" *ngIf="showFilter[key]">
+                      <div class="filter-box">
+                        <div class="form-row">
+                          <input type="text" name="filter" [attr.data-target]="key" placeholder="Tìm kiếm" />
+                        </div>
+                      </div>
+                      <div class="items">
+                        <ng-container *ngFor="let attr of filters[key]">
+                          <ul [attr.data-item]="key">
+                            <li (click)="filter(key, attr, 1)">{{ attr }}</li>
+                          </ul>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </li>
+                </ng-container>
+              </div>
+            </ul>
+          </div>
+        </div>
+        <div class="filter-chosen">
+          <ul>
+            <ng-container *ngFor="let item of fiterchosen | keys">
+              <li (click)="filter(item.key, item.value, 0)"><i class="fa fa-times icon-filter" aria-hidden="true"></i>
+                <span class="">{{ item.value }}</span></li>
+            </ng-container>
+          </ul>
+        </div>
+        <p class="mb-0 text-center">Tìm được {{ totalProduct }} kết quả</p>
+      </section>
+      <div class="list-product mt-3" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle"
+        (scrolled)="onScrollDown()">
+        <ng-container *ngFor="let product of products; let i = index">
+          <div (click)="productHandle(i);" class="product-items card" data-wow-duration="0.5s" data-wow-delay="0.4s"
+            *ngIf="true">
+            <div class="product product-single">
+              <div class="product-thumb">
+                <img [src]="'http://103.232.120.91:1337' + product.image" alt="">
+              </div>
+              <div class="product-body">
+                <div class="field-brand">
+                  <p class="product-brand">{{ product.manufacturer }}</p>
+                  <span class="discount-label">-{{ 100-(product.price_sale / product.price * 100) | number:'1.0-0'}}%</span>
+                </div>
+                <p class="product-name">{{ product.product_name }}</p>
+                <div class="field-price">
+                  <span class="price_old">{{ product.price | number }} đ</span>
+                  <span class="price_sale">{{ product.price_sale | number }} đ</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="col-md-12 text-center" *ngIf="!isFished">
+        <div class="lds-facebook">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="product-not-found" *ngIf="!isLoading && products == null">
+  <div class="card" >
+    <div class="card-body">
+      <h5>Không tìm thấy sản phẩm</h5>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,238 @@
+<div class="breadcrumb">
+  <ul>
+    <li><a [routerLink]="['/index']"><span><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</span></a></li>
+    <li><a [routerLink]="['/index']"><span>{{ product.category_id | category}}</span></a></li>
+    <li><span>{{ product.product_name }}</span></li>
+  </ul>
+</div>
+
+<div class="custom-loading" *ngIf="isLoading">
+  <div class="lds-facebook">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<div id="detail-product" class="mt-3">
+  <div class="container">
+    <div class="home-wrap">
+      <div class="row">
+        <div class="col-md-5">
+          <a class="image-product" [href]="'http://103.232.120.91:1337' + product.image"><img [src]="'https://ltudm-api-nodejs.herokuapp.com' + product.image" /></a>
+        </div>
+        <div class="col-md-7">
+          <div class="product-detail-info">
+            <div class="field-brand">
+              <p><a [routerLink]="'/search/' + product.manufacturer">{{ product.manufacturer }}</a></p>
+            </div>
+            <div class="field-name">
+              <p>{{ product.product_name }}</p>
+            </div>
+            <div class="field-old-price">
+              <span class="old-price price_old">{{ product.price | number }} ₫</span>
+              <span class="discount-lbl">{{ 100-(product.price_sale / product.price * 100) | number:'1.0-0'}}%</span>
+            </div>
+            <div class="field-price">
+              <div class="current-price price_sale">{{ product.price_sale | number }} ₫</div>
+            </div>
+            <div class="field-attr" *ngIf="main_attr.length">
+              <ul>
+                <ng-container *ngFor="let attr of main_attr">
+                  <li>{{ attr[0] | formatAttr }}: {{ attr[1] }}</li>
+                </ng-container>
+              </ul>
+            </div>
+            <div class="group-cart-action">
+              <div class="field-qty-col">
+                <button class="btn-minute" (click)="subNum()" type="button"><span>-</span></button>
+                <input name="numProduct" type="text" [(ngModel)]="numProduct" />
+                <button class="btn-plus" (click)="plusNum()" type="button"><span>+</span></button>
+              </div>
+              <button [attr.data-id]="product.id" [attr.data-category]="product.category_id" class="button-bg btn-buynow primary-btn btn-add-to-cart"
+                title="Mua ngay" type="button"><i class="fa fa-shopping-cart icon-shopping" aria-hidden="true"></i><span>Thêm
+                  vào giỏ hàng</span></button>
+              <div class="favorite-product" (click)="favoriteProduct()">
+                <i class="fa fa-heart-o" aria-hidden="true" *ngIf="!isFavorite"></i>
+                <i class="fa fa-heart" aria-hidden="true" *ngIf="isFavorite"></i>
+              </div>
+            </div>
+
+            <div class="field-delivery-content">
+              <!--
+                <p><strong>7 ngày đổi hàng miễn phí</strong></p>
+                <p class="delivery-note-lbl"><strong>Giao tiêu chuẩn</strong></p>-->
+              <div class="content">
+                <div class="delivery-time mt-2">
+                  <p>Giao hàng miễn phí khi mua đơn hàng trên <strong>200.000₫</strong> hoặc trên <strong>300.000₫</strong>
+                    tùy theo địa chỉ giao hàng</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--
+      <div class="seller-info-block">
+        <ul>
+          <li>
+            <p>Được cung cấp bởi</p>
+            <p class="seller-name">{{ product.marketplace }}</p>
+          </li>
+          <li>
+            <p>Sản phẩm hiện có</p>
+            <p class="info-type">665 sản phẩm</p>
+          </li>
+          <li>
+            <p>Thời gian tham gia</p>
+            <p class="info-type">18 tháng trên LOTTE.vn</p>
+          </li>
+          <li>
+            <a class="button-bg primary-btn" title="Xem shop" href="/marketplace?marketplaceId=<%= data.product[0].marketplace_id %>">Xem
+              shop</a>
+          </li>
+        </ul>
+      </div>-->
+      <div class="product-attributes">
+        <div class="product-model">Mã SKU: 3073303</div>
+        <h3>Thông số sản phẩm</h3>
+        <table cellpadding="0" cellspacing="0" class="tbl-product-attribute-specs" width="100%">
+          <tbody>
+            <ng-container *ngFor="let attr of attribute | keys">
+              <tr>
+                <th>{{ attr.key }}</th>
+                <td>{{ attr.value }}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="evaluate" *ngIf="evaluate != null">
+        <h6>Đánh giá và nhận xét</h6>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4 text-center">
+                <p style="font-size: 18px;">Đánh giá trung bình</p>
+                <p class="rating-score">{{ rating.score | number:'1.0-1' }}/5</p>
+                  <div class="star-ratings-sprite" style="margin: 10px auto;">
+                    <span [style.width.%]="rating.score/5 * 100" class="star-ratings-sprite-rating">
+                    </span>
+                  </div>
+                <p>({{ evaluate.length }} nhận xét)</p>
+              </div>
+              <div class="col-md-8 rating">
+                <ul>
+                  <li>
+                    <div class="row">
+                      <div class="col-md-1">
+                        <span>5 <i class="fa fa-star" aria-hidden="true"></i></span>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" [style.width.%]="rating.precent[4]"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-2 text-right">
+                        <span>{{ rating.precent[4] }} %</span>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row">
+                      <div class="col-md-1">
+                        <span>4 <i class="fa fa-star" aria-hidden="true"></i></span>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" [style.width.%]="rating.precent[3]"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-2 text-right">
+                        <span>{{ rating.precent[3] }} %</span>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row">
+                      <div class="col-md-1">
+                        <span>3 <i class="fa fa-star" aria-hidden="true"></i></span>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" [style.width.%]="rating.precent[2]"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-2 text-right">
+                        <span>{{ rating.precent[2] }} %</span>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row">
+                      <div class="col-md-1">
+                        <span>2 <i class="fa fa-star" aria-hidden="true"></i></span>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" [style.width.%]="rating.precent[1]"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-2 text-right">
+                        <span>{{ rating.precent[1] }} %</span>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row">
+                      <div class="col-md-1">
+                        <span>1 <i class="fa fa-star" aria-hidden="true"></i></span>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" [style.width.%]="rating.precent[0]"></div>
+                        </div>
+                      </div>
+                      <div class="col-md-2 text-right">
+                        <span>{{ rating.precent[0] }} %</span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngFor="let eval of evaluate">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="avartar">
+                    <p>?</p>
+                  </div>
+                  <p class="text-center mt-3">{{ eval.fullname }}</p>
+                </div>
+                <div class="col-md-6">
+                  <div class="star-ratings-sprite">
+                    <span [style.width.%]="eval.star/5 * 100" class="star-ratings-sprite-rating">
+                    </span>
+                  </div>
+                  <p>{{ eval.comment }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="product-not-found" *ngIf="!isLoading && product == null">
+  <div class="card">
+    <div class="card-body">
+      <h5>Không tìm thấy sản phẩm</h5>
+    </div>
+  </div>
+</div>

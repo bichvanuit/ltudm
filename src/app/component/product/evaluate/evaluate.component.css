@@ -1,0 +1,38 @@
+
+#evaluate {
+    margin-top: 30px;
+}
+
+.rating-widget {
+    margin-bottom: 1em;
+}
+
+.form-control {
+    border: 1px solid #ccc;
+}
+
+.product-name {
+    font-size: 18px;
+    overflow: unset;
+}
+
+.status {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 2px;
+    display: none;
+}
+
+.status p {
+    margin: 0;
+}
+
+.contact ul {
+    list-style-type: square;
+}
+.contact li {
+    margin-left: 29px;
+    margin-top: 10px;
+}
+
+

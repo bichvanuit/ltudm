@@ -1,0 +1,92 @@
+<div class="breadcrumb">
+  <ul>
+    <li><a [routerLink]="['/index']"><span><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</span></a></li>
+    <li><a [routerLink]="['/index']"><span>{{ product.product_name }}</span></a></li>
+    <li><span>Nhận xét</span></li>
+  </ul>
+</div>
+
+<div class="custom-loading" *ngIf="isLoading">
+  <div class="lds-facebook">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<div id="evaluate" *ngIf="true">
+  <div class="container">
+    <div class="home-wrap">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-5">
+              <p style="font-size: 18px;">Nhận xét của bạn</p>
+              <p>1. Đánh giá của bạn về sản phẩm này: </p>
+              <section class='rating-widget'>
+                <div class='rating-stars'>
+                  <ul id='stars'>
+                    <li class='star' title='Poor' data-value='1'>
+                      <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='Fair' data-value='2'>
+                      <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='Good' data-value='3'>
+                      <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='Excellent' data-value='4'>
+                      <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='WOW!!!' data-value='5'>
+                      <i class='fa fa-star fa-fw'></i>
+                    </li>
+                  </ul>
+                </div>
+              </section>
+              <p>2. Viết nhận xét của bạn: </p>
+              <div class="form-group">
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+              </div>
+              <div class="status alert-danger">
+                <p>Bạn chưa đánh giá sản phẩm</p>
+              </div>
+              <button class="btn primary-btn btn-send">Gửi nhận xét</button>
+            </div>
+            <div class="col-md-7" style="border-left: 1px solid #ccc">
+              <div class="row">
+                <div class="col-md-4">
+                  <img [src]="'http://103.232.120.91:1337' + product.image" width="200px" />
+                </div>
+                <div class="col-md-8 mt-4">
+                  <input type="hidden" name="product_id" [value]="product.id" />
+                  <input type="hidden" name="category_id" [value]="product.category_id" />
+                  <p class="product-name">{{ product.product_name }}</p>
+                  <p>Thương hiệu: {{ product.manufacturer }}</p>
+                  <p>(1 đánh giá)</p>
+                </div>
+                <div class="col-md-12">
+                  Quý khách có thắc mắc về sản phẩm hoặc phản hồi về đơn hàng đã nhận, hãy liên hệ với chúng tôi
+                  <div class="contact">
+                    <ul>
+                      <li>Hotline: 035 210 7018</li>
+                      <li>Email: cskh@mwmart.com</li>
+                    </ul>
+                  </div>                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="product-not-found" *ngIf="!isLoading && product == null">
+  <div class="card">
+    <div class="card-body">
+      <h5>Đơn hàng này không phải của bạn, vui lòng kiểm tra lại</h5>
+    </div>
+  </div>
+</div>

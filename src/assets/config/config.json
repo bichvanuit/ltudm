@@ -1,0 +1,22 @@
+{
+    "language": "en",
+    "API_HOST": "http://localhost:1337",
+    "CUSTOMER": "/customer",
+    "PRODUCT": "/product",
+    "ORDER": "/order",
+    "API_URL": {
+        "Customer": {
+            "ActiveAccount": "/active-account",
+            "GetUser": "/get-user",
+            "GetViewProduct": "/get-viewed-product"
+        },
+        "Product": {
+            "ProductHot": "/get-product-hot",
+            "ProductNew": "/get-new-product",
+            "ProductRecent": "/get-product-recent"
+        },
+        "Order": {
+            "GetCart": "/get-cart"
+        }
+    }
+}
