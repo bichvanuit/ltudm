@@ -1,0 +1,85 @@
+#customer .product-items {
+    width: 179px;
+    margin: 10px 5px 5px 5px;
+    padding: 0 8px 15px 8px;
+}
+
+#customer .list-product {
+    margin-top: 30px;
+}
+
+#customer .product-items p {
+    font-size: 14px;
+}
+
+#customer .product-items img {
+    width: 170px;
+}
+
+#customer button {
+    margin-top: 10px;
+}
+
+#customer .loading {
+    margin: 150px 0px;
+}
+
+#customer .product-name {
+    max-width: 150px;
+}
+
+#customer .label-error {
+    margin-left: 118px;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.active-status {
+    border: 1px solid #4caf50 !important;
+    color: #4caf50 !important; 
+}
+
+#customer .status-update {
+    border: 1px solid red;
+    color: red;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+#customer .status-update p {
+    margin: 0;
+    font-size: 16px;
+}
+
+#customer .title {
+    font-size: 20px;
+    margin-top: 0px;
+}
+
+#change-password {
+    margin-top: 20px;
+}
+
+
+.social img {
+    width: 45px;
+    margin-right: 10px;
+}
+
+.social i {
+    color: #4caf50;
+    margin-left: 8px;
+}
+
+.social .status {
+    float: right;
+}
+
+.social .face, .social .google {
+    border: 1px solid #F2F2F2;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+

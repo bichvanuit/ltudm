@@ -1,0 +1,41 @@
+<div class="breadcrumb">
+<ul>
+  <li><a [routerLink]="['/index']"><span><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</span></a></li>
+  <li><span>{{ titleCurrent }}</span></li>
+</ul>
+</div>
+<div class="section">
+    <div class="container">
+      <div class="row">
+        <div class="list-product mt-3" infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="throttle" (scrolled)="onScrollDown()" checkLastPage="true">
+            <ng-container *ngFor="let product of products; let i = index">
+              <div (click)="productHandle(i);" class="product-items card" data-wow-duration="0.5s" data-wow-delay="0.4s" *ngIf="true">                
+                  <div class="product product-single">
+                    <div class="product-thumb">
+                      <img [src]="'http://103.232.120.91:1337' + product.image" alt="">
+                    </div>
+                    <div class="product-body">
+                      <div class="field-brand">
+                        <p class="product-brand">{{ product.manufacturer }}</p>
+                        <span class="discount-label">-{{ 100-(product.price_sale / product.price * 100) | number:'1.0-0'}}%</span>
+                      </div>								
+                      <p class="product-name">{{ product.product_name }}</p>
+                      <div class="field-price">
+                        <span class="price_old">{{ product.price | number }} đ</span>
+                        <span class="price_sale">{{ product.price_sale | number }} đ</span>
+                      </div>
+                      <div class="field-rate">
+                        <span>(1 Đánh giá)</span>
+                        <span class="amout-view"><i class="fa fa-eye"></i> {{ product.count }}</span>
+                      </div>								
+                    </div>
+                  </div>					
+                </div>        
+            </ng-container>
+          </div>
+          <div class="col-md-12 text-center" *ngIf="!isFinshed">
+            <div class="lds-facebook"><div></div><div></div><div></div></div>   
+          </div> 
+        </div>
+    </div>
+  </div>

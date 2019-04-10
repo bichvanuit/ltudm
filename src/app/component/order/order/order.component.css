@@ -1,0 +1,22 @@
+#order-detail {
+    margin-top: 60px;
+}
+
+h4, h6 {
+    font-weight: 400;
+}
+
+table {
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.table tr {
+    border: 1px solid #ccc;
+}
+
+.primary-btn {
+    color: #021f3d;
+    background-color: #fff;
+    border: 1px solid #021f3d;
+}
