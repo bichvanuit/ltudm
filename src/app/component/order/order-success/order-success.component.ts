@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../service/api.service';
 import { DataSharingService } from '../../../service/dataSharing.service';
-import { SettingService } from 'src/app/service/setting.service';
+import { ConfigUtilService } from 'src/app/service/configUtilService';
+import { API } from 'src/assets/contants/contants';
 
 @Component({
   selector: 'app-order-success',
@@ -11,12 +12,19 @@ import { SettingService } from 'src/app/service/setting.service';
 export class OrderSuccessComponent implements OnInit {
   info = null;
   isLoading = true;
+
+  private objConfig: any;
+  private strApiGetOrderSuccess: string;
+
   constructor(
     private api: ApiService,
     private data : DataSharingService,
+    private configUtil: ConfigUtilService,
   ) { }
   ngOnInit() {
-    this.api.getApi(SettingService.URL_API_ORDER + "/get-order-success")
+    this.objConfig = this.configUtil.getConfig();
+    this.strApiGetOrderSuccess = this.objConfig[API.R_ORDER] + this.objConfig[API.ORDER][API.GET_ORDER_SUCCESS];
+    this.api.getApi(this.strApiGetOrderSuccess)
       .then(result => {
         this.isLoading = false
         if(result.status) {

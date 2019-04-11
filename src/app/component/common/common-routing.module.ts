@@ -18,15 +18,13 @@ import { ActiveAccountComponent } from './active-account/active-account.componen
 
 const routes: Routes = [
     { path: 'test', component: PageErrorComponent },
-    { path : 'index', component : HomeComponent },
+    { path : '', component : HomeComponent },
     { path : 'active-account/:token', component : ActiveAccountComponent },
-    { path : '', redirectTo: '/index', pathMatch: 'full'},
-    { path : '**', component : HomeComponent},
 ];
 
 @NgModule({
     imports : [
-        RouterModule.forChild(routes)
+        RouterModule.forRoot(routes)
     ],
     exports: [
         RouterModule,

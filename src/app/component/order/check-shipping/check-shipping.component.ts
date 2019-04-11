@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataSharingService } from '../../../service/dataSharing.service';
 import { SettingService } from 'src/app/service/setting.service';
+import { ConfigUtilService } from 'src/app/service/configUtilService';
+import { API } from 'src/assets/contants/contants';
 
 @Component({
   selector: 'app-check-shipping',
@@ -22,19 +24,35 @@ export class CheckShippingComponent implements OnInit {
   numProduct = 0;
   transferMessage = "Bạn được miễn phí giao hàng";
 
-  constructor(private api: ApiService, private router: Router, private data: DataSharingService) { }
+  private objConfig: any;
+  private strApiGetLocation: string;
+  private strApiGetUser: string;
+  private strApiGetCard: string;
+  private strApiPostOrder: string;
+  constructor(
+    private api: ApiService, 
+    private router: Router, 
+    private data: DataSharingService,
+    private configUtil: ConfigUtilService,
+  ) { }
 
   ngOnInit() {
-    this.api.getApi(SettingService.URL_API_LOCATION + "/get-location")
+    this.objConfig = this.configUtil.getConfig();
+    this.strApiGetLocation = this.objConfig[API.R_LOCATION]+ this.objConfig[API.LOCATION][API.GET_LOCATION];
+    this.strApiGetUser = this.objConfig[API.R_CUSTOMER] + this.objConfig[API.CUSTOMER][API.GETUSER];
+    this.strApiGetCard = this.objConfig[API.R_ORDER] + this.objConfig[API.ORDER][API.GETCART];
+    this.strApiPostOrder = this.objConfig[API.R_ORDER] + this.objConfig[API.ORDER][API.POST_ORDER]
+
+    this.api.getApi(this.strApiGetLocation)
       .then(result => this.provinces = result.value);
 
-    this.api.getApi(SettingService.URL_API_LOCATION + "/get-location?province_id=1")
+    this.api.getApi(this.strApiGetLocation + "?province_id=1")
       .then(result => this.districts = result.value);
 
-    this.api.getApi(SettingService.URL_API_LOCATION + "/get-location?province_id=1&district_id=1")
+    this.api.getApi(this.strApiGetLocation + "?province_id=1&district_id=1")
       .then(result => this.communes = result.value);
 
-    this.api.getApi(SettingService.URL_API_CUSTOMER + "/get-user")
+    this.api.getApi(this.strApiGetUser)
       .then(result => {
         if (result.status) {
           let data = result.value;
@@ -52,7 +70,7 @@ export class CheckShippingComponent implements OnInit {
         }
       });
 
-    this.api.getApi(SettingService.URL_API_ORDER + "/get-cart")
+    this.api.getApi(this.strApiGetCard)
       .then(result => {
         this.isLoading = false;
         if (result.status) {
@@ -68,7 +86,7 @@ export class CheckShippingComponent implements OnInit {
   }
 
   postOrder() {
-    this.api.postApi({ 'data': this.formInfo.value }, SettingService.URL_API_ORDER + "/post-order")
+    this.api.postApi({ 'data': this.formInfo.value }, this.strApiPostOrder)
       .then(result => {
         this.router.navigate(['/check-payment']);
       });

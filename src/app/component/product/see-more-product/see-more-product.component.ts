@@ -3,6 +3,8 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import { ApiService } from 'src/app/service/api.service'; 
 import { ProductService } from 'src/app/service/product.service';
 import { SettingService } from 'src/app/service/setting.service';
+import { ConfigUtilService } from 'src/app/service/configUtilService';
+import { API } from 'src/assets/contants/contants';
 
 @Component({
   selector: 'app-see-more-product',
@@ -22,28 +24,41 @@ export class SeeMoreProductComponent implements OnInit {
   titleCurrent = '';
   link = null;
 
+  private objConfig: any;
+  private strApiProduct: string;
+  private strApiProductHot: string;
+  private strApiProductRecent: string;
+  private strApiProductNew: string;
+
   constructor(
     private router : ActivatedRoute,
     private api : ApiService,
     private route : Router,
-    private productService : ProductService
+    private productService : ProductService,
+    private configUtil: ConfigUtilService,
     ) {}
 
   ngOnInit() {
+    this.objConfig = this.configUtil.getConfig();
+    this.strApiProduct = this.objConfig[API.R_PRODUCT];
+    this.strApiProductHot = this.strApiProduct + this.objConfig[API.PRODUCT][API.PRODUCT_HOT];
+    this.strApiProductNew = this.strApiProductNew + this.objConfig[API.PRODUCT][API.PRODUCT_NEW];
+    this.strApiProductRecent = this.strApiProductRecent + this.objConfig[API.PRODUCT][API.PRODUCT_RECENT];
+
     this.router.queryParams.subscribe((params: Params) => {
       this.src = params.src;
       switch(this.src) {
         case 'product-hot':
-            this.link = SettingService.URL_API_PRODUCT + "/get-product-hot";        
+            this.link =  this.strApiProductHot;      
             this.titleCurrent = "Sản phẩm được xem nhiều";
             break;
         case 'product-viewed':
-          this.link = SettingService.URL_API_PRODUCT + "/get-product-recent";
+          this.link = this.strApiProductNew;
           this.titleCurrent = "Sản phẩm đã xem";
           this.isFinshed = true;
           break;
         case 'product-new':
-          this.link = SettingService.URL_API_PRODUCT + "/get-new-product";
+          this.link = this.strApiProductRecent;
           this.titleCurrent = "Hàng mới về"
           break;
       }

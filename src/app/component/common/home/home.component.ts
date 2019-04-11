@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';
 import { ProductService } from 'src/app/service/product.service';
 import { Router } from '@angular/router';
-import { SettingService } from 'src/app/service/setting.service';
 import { ConfigUtilService } from 'src/app/service/configUtilService';
+import { API } from 'src/assets/contants/contants';
 
 @Component({
   selector: 'app-home',
@@ -31,9 +31,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {  
   
     this.objConfig = this.configUtil.getConfig();
-    this.strApiProductHot = this.objConfig["PRODUCT"] + this.objConfig["API_URL"]["Product"]["ProductHot"];
-    this.strApiProductNew = this.objConfig["PRODUCT"] + this.objConfig["API_URL"]["Product"]["ProductNew"];
-    this.strApiProductNew = this.objConfig["PRODUCT"] + this.objConfig["API_URL"]["Product"]["ProductRecent"];
+    this.strApiProductHot = this.objConfig[API.R_PRODUCT] + this.objConfig[API.PRODUCT][API.PRODUCT_HOT];
+    this.strApiProductNew = this.objConfig[API.R_PRODUCT] + this.objConfig[API.PRODUCT][API.PRODUCT_NEW];
+    this.strApiProductNew = this.objConfig[API.R_PRODUCT] + this.objConfig[API.PRODUCT][API.PRODUCT_RECENT];
     
     this.api.getApi(this.strApiProductHot)
     .then(result => { this.products["hot"] = result.value });

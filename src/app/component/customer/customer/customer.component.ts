@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/service/api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SettingService } from 'src/app/service/setting.service';
 import { ConfigUtilService } from 'src/app/service/configUtilService';
+import { API } from 'src/assets/contants/contants';
 
 @Component({
   selector: 'app-customer',
@@ -29,6 +30,11 @@ export class CustomerComponent implements OnInit {
   };
 
   private objConfig: any;
+  private strApiCustomer: string;
+  private strApiGetUser: string;
+  private strApiGetOrder: string;
+  private strApiGetViewProduct: string;
+  private strApiUpdateProfile: string;
 
   constructor(
     private api : ApiService,
@@ -36,7 +42,14 @@ export class CustomerComponent implements OnInit {
   ) { }
   ngOnInit() {
     this.objConfig = this.configUtil.getConfig();
-      this.api.getApi(SettingService.URL_API_CUSTOMER + "/get-user")
+    this.strApiCustomer = this.objConfig[API.R_CUSTOMER];
+
+    this.strApiGetUser = this.strApiCustomer + this.objConfig[API.CUSTOMER][API.GETUSER];
+    this.strApiGetOrder = this.strApiCustomer + this.objConfig[API.CUSTOMER][API.GETORDER];
+    this.strApiGetViewProduct = this.strApiCustomer + this.objConfig[API.CUSTOMER][API.GET_VIEW_PRODUCT];
+    this.strApiUpdateProfile = this.strApiCustomer + this.objConfig[API.CUSTOMER][API.UPDATE_PROFILE];
+
+      this.api.getApi(this.strApiGetUser)
       .then(result => {     
         if(result.status) {
           let data = result.value;  
@@ -75,13 +88,13 @@ export class CustomerComponent implements OnInit {
       case 0:
         break;
       case 1:
-        this.api.getApi(SettingService.URL_API_CUSTOMER + "/get-order")
+        this.api.getApi(this.strApiGetOrder)
         .then(result => {
           this.products.order = result.value;
         });
         break;
       case 2:
-        this.api.getApi(SettingService.URL_API_CUSTOMER + "/get-viewed-product")
+        this.api.getApi(this.strApiGetViewProduct)
         .then(result => {
           this.products.viewed = result.value;        
         });
@@ -95,7 +108,7 @@ export class CustomerComponent implements OnInit {
   }
 
   updateProfile() {
-    this.api.postApi({'data' : this.formInfo.value}, SettingService.URL_API_CUSTOMER + "/update-profile")
+    this.api.postApi({'data' : this.formInfo.value}, this.strApiUpdateProfile)
     .then(result => {
       if(result.status) {
         this.isSuccess = true;
