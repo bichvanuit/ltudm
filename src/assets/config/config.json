@@ -1,22 +1,37 @@
 {
     "language": "en",
     "API_HOST": "http://localhost:1337",
-    "CUSTOMER": "/customer",
-    "PRODUCT": "/product",
-    "ORDER": "/order",
-    "API_URL": {
-        "Customer": {
-            "ActiveAccount": "/active-account",
-            "GetUser": "/get-user",
-            "GetViewProduct": "/get-viewed-product"
-        },
-        "Product": {
-            "ProductHot": "/get-product-hot",
-            "ProductNew": "/get-new-product",
-            "ProductRecent": "/get-product-recent"
-        },
-        "Order": {
-            "GetCart": "/get-cart"
-        }
-    }
+    "R_CUSTOMER": "/customer",
+    "R_PRODUCT": "/product",
+    "R_ORDER": "/order",
+    "R_LOCATION": "/location",
+    "CUSTOMER": {
+        "ActiveAccount": "/active-account",
+        "GetUser": "/get-user",
+        "GetViewProduct": "/get-viewed-product",
+        "GetOrder": "/get-order",
+        "UpdateProfile": "/update-profile",
+        "GetProductEvaluate": "/get-product-evaluate",
+        "PostFavoriteProduct": "/post-favorite-product"
+    },
+    "PRODUCT": {
+        "ProductHot": "/get-product-hot",
+        "ProductNew": "/get-new-product",
+        "ProductRecent": "/get-product-recent",
+        "GetDetailProduct": "/get-detail-product",
+        "PostProductView": "/post-product-viewed"
+    },
+    "ORDER": {
+        "GetCart": "/get-cart",
+        "GetOrder": "/get-order",
+        "UpdateCard": "/update-cart",
+        "UpdateOrder": "/update-order",
+        "PostOrder": "/post-order",
+        "LookUpOrder": "/look-up-order",
+        "GetOrderDetail": "/get-order-detail",
+        "GetOrderSuccess": "/get-order-success"
+    },
+    "LOCATION": {
+        "GetLocaction": "/get-location"
+    }   
 }

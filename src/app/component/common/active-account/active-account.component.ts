@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap, NavigationEnd, Router } from '@angular/router
 import { ApiService } from 'src/app/service/api.service';
 import { SettingService } from 'src/app/service/setting.service';
 import { ConfigUtilService } from 'src/app/service/configUtilService';
+import { API } from 'src/assets/contants/contants';
 
 @Component({
   selector: 'app-active-account',
@@ -23,7 +24,7 @@ export class ActiveAccountComponent implements OnInit {
 
   ngOnInit() {
     this.objConfig = this.configUtil.getConfig();
-    this.strApiActive = this.objConfig["CUSTOMER"] + this.objConfig["Customer"]["ActiveAccount"];
+    this.strApiActive = this.objConfig[API.R_CUSTOMER] + this.objConfig[API.CUSTOMER][API.ACTIVEACCOUNT];
     
     let token = this.route.snapshot.paramMap.get('token');
     this.api.postApi({"data" : token}, this.strApiActive)

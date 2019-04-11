@@ -4,6 +4,8 @@ import { ApiService } from 'src/app/service/api.service';
 import { DataSharingService } from 'src/app/service/dataSharing.service';
 import { ProductService } from 'src/app/service/product.service';
 import { SettingService } from 'src/app/service/setting.service';
+import { ConfigUtilService } from 'src/app/service/configUtilService';
+import { API } from 'src/assets/contants/contants';
 
 @Component({
   selector: 'app-product',
@@ -29,18 +31,31 @@ export class ProductComponent implements OnInit {
     "category_id": 0,
   }
   isFavorite = false;
+
+  private objConfig: any;
+  private strApiGetDetailProduct: string;
+  private strApiPostProductView: string;
+  private strAPiPostFavorite: string;
+
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
     private data: DataSharingService,
-    private products: ProductService
+    private products: ProductService,
+    private configUtil: ConfigUtilService,
   ) { }
   ngOnInit() {
+    this.objConfig = this.configUtil.getConfig();
+
+    this.strApiGetDetailProduct = this.objConfig[API.R_PRODUCT] + this.objConfig[API.PRODUCT][API.GET_DETAILS_PRODUCT];
+    this.strApiPostProductView = this.objConfig[API.R_PRODUCT] + this.objConfig[API.PRODUCT][API.POST_PRODUCT_VIEW];
+    this.strAPiPostFavorite = this.objConfig[API.R_CUSTOMER] + this.objConfig[API.CUSTOMER][API.POST_FAVORITE_PRODUCT];
+
     window.scrollTo(0, 0);
     this.route.paramMap.subscribe((params: ParamMap) => {
       var url = params.get('url');
       url = url.split("-").slice(-1)[0].slice(1);
-      this.api.getApi(SettingService.URL_API_PRODUCT + "/get-detail-product?categoryId=" + params.get('categoryId') + "&productId=" + url)
+      this.api.getApi(SettingService.URL_API_PRODUCT + this.strApiGetDetailProduct + "?categoryId=" + params.get('categoryId') + "&productId=" + url)
         .then(result => {
           this.isLoading = false;
           if (result.status) {
@@ -67,7 +82,7 @@ export class ProductComponent implements OnInit {
 
     if (localStorage.getItem("MW_TOKEN")) {
       this.isLogin = true;
-      this.api.postApi({ "data": this.dataProduct }, SettingService.URL_API_PRODUCT + "/post-product-viewed");
+      this.api.postApi({ "data": this.dataProduct }, this.strApiPostProductView);
     } else {
       this.products.addRecent(this.product.id, this.product.category_id);
     }
@@ -75,7 +90,7 @@ export class ProductComponent implements OnInit {
 
   favoriteProduct() {
     if (localStorage.getItem("MW_TOKEN") != null) {
-        this.api.postApi({"data" : this.dataProduct}, SettingService.URL_API_CUSTOMER + "/post-favorite-product")
+        this.api.postApi({"data" : this.dataProduct}, SettingService.URL_API_CUSTOMER + this.strAPiPostFavorite)
         .then(result => {
           this.isFavorite = !this.isFavorite;
         });

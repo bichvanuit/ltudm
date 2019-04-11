@@ -4,6 +4,8 @@ import { DataSharingService } from '../../../service/dataSharing.service';
 import { ProductService } from '../../../service/product.service';
 import { Router } from '@angular/router';
 import { SettingService } from 'src/app/service/setting.service';
+import { ConfigUtilService } from 'src/app/service/configUtilService';
+import { API } from 'src/assets/contants/contants';
 
 @Component({
   selector: 'app-check-cart',
@@ -18,15 +20,28 @@ export class CheckCartComponent implements OnInit {
   transferMessage = "Bạn được miễn phí giao hàng";
 
   tmp = 0;
+
+  private objConfig: any;
+  private strApiOrder: string;
+  private strApiGetCart: string;
+  private strApiUpdateCard: string;
+
   constructor(
     private api: ApiService,
     private data: DataSharingService,
     private product: ProductService,
     private router: Router,
+    private configUtil: ConfigUtilService,
   ) { }
 
-  ngOnInit() {    
-    this.api.getApi(SettingService.URL_API_ORDER + "/get-cart")
+  ngOnInit() {  
+    this.objConfig = this.configUtil.getConfig();
+    this.strApiOrder = this.objConfig[API.R_ORDER];
+
+    this.strApiGetCart = this.strApiOrder  + this.objConfig[API.ORDER][API.GETCART];  
+    this.strApiUpdateCard = this.strApiOrder + this.objConfig[API.ORDER][API.UPDATE_CARD];
+
+    this.api.getApi(this.strApiGetCart)
       .then(result => {
         this.isLoading = false;
         if (result.status) {
@@ -46,8 +61,7 @@ export class CheckCartComponent implements OnInit {
     });
     if (this.cart[index].num > 1) {
       this.api.postApi(
-        { "data": { "product_id": id, "category": this.cart[index], "value": "-1" } }, 
-        SettingService.URL_API_ORDER + "/update-cart")
+        { "data": { "product_id": id, "category": this.cart[index], "value": "-1" } }, this.strApiUpdateCard)
         .then(() => {
           this.cart[index].num -= 1;
           this.totalPrice -= this.cart[index].price_sale;         
@@ -60,8 +74,7 @@ export class CheckCartComponent implements OnInit {
       return obj.id == id;
     });
     this.api.postApi(
-      { "data": { "product_id": id, "category": this.cart[index], "value": "1" } }, 
-      SettingService.URL_API_ORDER + "/update-cart")
+      { "data": { "product_id": id, "category": this.cart[index], "value": "1" } }, this.strApiUpdateCard)
       .then(() => {
         this.cart[index].num += 1;
         this.totalPrice += this.cart[index].price_sale;

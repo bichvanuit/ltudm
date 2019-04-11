@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { ApiService } from '../../../service/api.service';
 import { SettingService } from 'src/app/service/setting.service';
+import { ConfigUtilService } from 'src/app/service/configUtilService';
+import { API } from 'src/assets/contants/contants';
 
 @Component({
   selector: 'app-check-payment',
@@ -17,9 +19,16 @@ export class CheckPaymentComponent implements OnInit {
   isLoading = true;
   transferMessage = "Bạn được miễn phí giao hàng";
 
+  private objConfig: any;
+  private strApiOrder: string;
+  private strApiGetOrder: string;
+  private strApiGetCard: string;
+  private strApiUpdateOrder: string;
+
   constructor(
     private router: Router,
-    private api: ApiService
+    private api: ApiService,
+    private configUtil: ConfigUtilService,
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -33,7 +42,13 @@ export class CheckPaymentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.api.getApi(SettingService.URL_API_ORDER + "/get-order")
+    this.objConfig = this.configUtil.getConfig();
+    this.strApiOrder = this.objConfig[API.R_ORDER];
+    this.strApiGetOrder =  this.strApiOrder + this.objConfig[API.ORDER][API.GETORDER];
+    this.strApiGetCard = this.strApiOrder + this.objConfig[API.ORDER][API.GETCART];
+    this.strApiUpdateOrder = this.strApiOrder + this.objConfig[API.ORDER][API.UPDATE_ORDER];
+    
+    this.api.getApi(this.strApiGetOrder )
       .then(result => {      
           if(result.status) {
             this.info = result.value.info,
@@ -41,7 +56,7 @@ export class CheckPaymentComponent implements OnInit {
           }          
       });
 
-    this.api.getApi(SettingService.URL_API_ORDER + "/get-cart")
+    this.api.getApi( this.strApiGetCard )
       .then(result => {
         this.isLoading = false;
         if (result.status) {
@@ -56,8 +71,7 @@ export class CheckPaymentComponent implements OnInit {
   }
   payment() {
     this.api.postApi(
-      { 'data': { "delivery_method": 1, "payment_method": 1 } }, 
-      SettingService.URL_API_ORDER + "/update-order")
+      { 'data': { "delivery_method": 1, "payment_method": 1 } }, this.strApiUpdateOrder)
       .then(result => {
         if (result.status) {
           this.router.navigate(['/order-success']);

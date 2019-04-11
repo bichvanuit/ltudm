@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../service/api.service';
 import { SettingService } from 'src/app/service/setting.service';
+import { ConfigUtilService } from 'src/app/service/configUtilService';
+import { API } from 'src/assets/contants/contants';
 
 @Component({
   selector: 'app-look-up-order',
@@ -15,14 +17,22 @@ export class LookUpOrderComponent implements OnInit {
   data = null;
   isFind=false;
   status = false;
-  constructor(private api : ApiService) { }
+
+  private objConfig: any;
+  private strApiLookUpOrder: string;
+
+  constructor(
+    private api : ApiService,
+    private configUtil: ConfigUtilService,
+  ) { }
 
   ngOnInit() {
-    
+    this.objConfig = this.configUtil.getConfig();
+    this.strApiLookUpOrder = this.objConfig[API.R_ORDER] + this.objConfig[API.ORDER][API.LOOK_UP_ORDER]
   }
 
   lookUp(){
-    this.api.postApi({"data" : this.order}, SettingService.URL_API_ORDER + "/look-up-order")
+    this.api.postApi({"data" : this.order}, this.strApiLookUpOrder)
     .then(result => {
       if(result.status){
         this.data = result.value;

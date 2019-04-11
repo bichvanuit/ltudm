@@ -5,6 +5,7 @@ import { ProductService } from 'src/app/service/product.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { SettingService } from 'src/app/service/setting.service';
+import { ConfigUtilService } from 'src/app/service/configUtilService';
 
 @Component({
   selector: 'app-search',
@@ -24,7 +25,8 @@ export class SearchComponent implements OnInit {
     private api: ApiService,
     private location: Location,
     private router: Router,
-    private product: ProductService) {
+    private product: ProductService,
+  ) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     }

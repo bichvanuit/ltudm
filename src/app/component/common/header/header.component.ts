@@ -6,6 +6,7 @@ import { DataSharingService } from 'src/app/service/dataSharing.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SettingService } from 'src/app/service/setting.service';
 import { ConfigUtilService } from 'src/app/service/configUtilService';
+import { API } from 'src/assets/contants/contants';
 
 @Component({
   selector: 'app-header',
@@ -65,8 +66,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.objConfig = this.configUtil.getConfig();
-    this.strApiGetCart = this.objConfig["ORDER"] + this.objConfig["GetCart"];
-    this.strApiGetUser = this.objConfig["CUSTOMER"] + this.objConfig["GetUser"]; 
+    this.strApiGetCart = this.objConfig[API.R_ORDER] + this.objConfig[API.ORDER][API.GETCART];
+    this.strApiGetUser = this.objConfig[API.R_CUSTOMER] + this.objConfig[API.CUSTOMER][API.GETUSER]; 
     
     this.data.addToCart.subscribe(value => {
       this.numProduct += value;
