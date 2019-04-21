@@ -27,7 +27,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import { ConfigUtilService } from './service/configUtilService';
 import { environment } from 'src/environments/environment';
-
+import {  } from '';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
