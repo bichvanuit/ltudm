@@ -1,0 +1,116 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        General Form Elements
+        <small>Preview</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Forms</a></li>
+        <li class="active">General Elements</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Quick Example</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="box-body" *ngIf="order">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Fullname</label>
+                  <input type="email" [(ngModel)]="order.fullname" name="fullname" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input type="email" [(ngModel)]="order.email" name="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+                  </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Phone Number</label>
+                  <input type="email" [(ngModel)]="order.phone_number" name="phone_number" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <p>Address: {{ order.apartment_street_number }} {{ location.commune_name }}, {{ location.district_name
+                  }}, {{ location.province_name }}</p>
+                  <div class="form-group">
+                      <label for="exampleInputEmail1">Note</label>
+                      <input type="email" [(ngModel)]="order.note" name="note" class="form-control" id="exampleInputEmail8" placeholder="Enter note">
+                    </div>
+                  <div class="form-group">
+                      <label for="exampleInputEmail1">Delivery Method</label>
+                      <input type="email" [(ngModel)]="order.delivery_method" name="delivery_method" class="form-control" id="exampleInputEmail4" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Payment Method</label>
+                        <input type="email" [(ngModel)]="order.payment_method" name="payment_method" class="form-control" id="exampleInputEmail5" placeholder="Enter email">
+                      </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Transport Fee</label>
+                      <input type="email" [(ngModel)]="order.transport_fee" name="transport_fee" class="form-control" id="exampleInputPassword5" placeholder="Password">
+                    </div>
+                <!-- <div class="form-group">
+                  <label for="exampleInputFile">File input</label>
+                  <input type="file" id="exampleInputFile">
+
+                  <p class="help-block">Example block-level help text here.</p>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> Check me out
+                  </label>
+                </div> -->
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Product</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th>Product name</th>
+                      <th>Amount</th>
+                      <th>Price</th>
+                      <th>URL</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor = "let product of products">
+                      <td>{{ product.product_name }}</td>
+                      <td>{{ product.amount }}</td>
+                      <td>{{ product.price_sale }}</td>
+                      <td>{{ product.url_product }}</td>
+                    </tr>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+          <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+        <!-- right column -->
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
