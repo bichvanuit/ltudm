@@ -12,11 +12,14 @@ export class ApiService implements OnInit {
     }
 
     getApi(url){  
-        let header = new Headers({'Content-Type' : 'application/json' });
-        if(localStorage.getItem("MW_TOKEN") != null) {            
-            header.append("authorization", "Bearer " + localStorage.getItem("MW_TOKEN"));              
-        }     
-        return this.http.get(url, {"headers" : header})
+        return this.http.get(url)
+        .toPromise()
+        .then(res => res.json())
+        .then(resJson => resJson);
+    }
+
+    getApiInstance(url, id){  
+        return this.http.get(url + id)
         .toPromise()
         .then(res => res.json())
         .then(resJson => resJson);
@@ -24,11 +27,8 @@ export class ApiService implements OnInit {
     
     postApi(value, url){               
         const body = JSON.stringify(value);
-        let header = new Headers({'Content-Type' : 'application/json' });
-        if(localStorage.getItem("MW_TOKEN") != null) {            
-            header.append("authorization", "Bearer " + localStorage.getItem("MW_TOKEN"));              
-        } 
-        return this.http.post(url, body, {"headers" : header})
+
+        return this.http.post(url, body)
         .toPromise()
         .then(res => res.json())
         .then(resJson => resJson);

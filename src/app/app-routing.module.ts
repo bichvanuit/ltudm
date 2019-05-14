@@ -6,8 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 const routesConfig : Routes = [
- // { path : '**', component : HomeComponent},
- // { path : '', redirectTo: '/index', pathMatch: 'full'},
+//  { path : '**', component : HomeComponent},
+//  { path : '', redirectTo: '/index', pathMatch: 'full'},
 ];
 
   @NgModule({

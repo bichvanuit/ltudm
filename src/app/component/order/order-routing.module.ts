@@ -10,22 +10,13 @@
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { CheckCartComponent } from './check-cart/check-cart.component';
-import { CheckPaymentComponent } from './check-payment/check-payment.component';
-import { CheckShippingComponent } from './check-shipping/check-shipping.component';
-import { LookUpOrderComponent } from './look-up-order/look-up-order.component';
-import { OrderSuccessComponent } from './order-success/order-success.component';
-import { OrderComponent } from './order/order.component';
+import { ListOrderComponent } from './list-order/list-order.component';
+import { DetailOrderComponent } from './detail-order/detail-order.component';
 
 
 const routes: Routes = [
-    { path : 'check-cart', component : CheckCartComponent},
-    { path : 'check-shipping', component : CheckShippingComponent},
-    { path : 'check-payment', component : CheckPaymentComponent},
-    { path : 'look-up-order', component : LookUpOrderComponent},
-    { path : 'order-success', component : OrderSuccessComponent},
-    { path : 'order-detail/:id', component : OrderComponent},
+    { path : 'order', component : ListOrderComponent},
+    { path : 'order/:id', component : DetailOrderComponent},
 ];
 
 @NgModule({

@@ -16,18 +16,19 @@ import { SettingService } from './service/setting.service';
 import { HttpQueryStringService } from './service/httpQueryString.service';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AdminModule } from './component/admin/admin.module';
 import { CommonModule } from './component/common/common.module';
 import { CustomerModule } from './component/customer/customer.module';
-import { InfoModule } from './component/info/info.module';
 import { OrderModule } from './component/order/order.module';
 import { ProductModule } from './component/product/product.module';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { ConfigUtilService } from './service/configUtilService';
+import { MarketplaceModule } from './component/marketplace/marketplace.module';
 import { environment } from 'src/environments/environment';
-import {  } from '';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -54,9 +55,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommonModule,
     AppRoutingModule,
     CustomerModule,
-    InfoModule,
     OrderModule,
-    ProductModule
+    ProductModule,
+    AdminModule,
+    MarketplaceModule
   ],
   providers: [
     ConfigUtilService,

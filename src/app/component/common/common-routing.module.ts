@@ -13,13 +13,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PageErrorComponent } from './page-error/page-error.component';
 import { HomeComponent } from './home/home.component';
-import { ActiveAccountComponent } from './active-account/active-account.component';
 
 
 const routes: Routes = [
     { path: 'test', component: PageErrorComponent },
     { path : '', component : HomeComponent },
-    { path : 'active-account/:token', component : ActiveAccountComponent },
 ];
 
 @NgModule({

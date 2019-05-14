@@ -10,11 +10,10 @@
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { CustomerComponent } from './customer/customer.component';
+import { ListCustomerComponent } from './list-customer/list-customer.component';
 
 const routes: Routes = [
-    { path : 'customer', component : CustomerComponent},
+    { path : 'customer', component : ListCustomerComponent},
 ];
 
 @NgModule({

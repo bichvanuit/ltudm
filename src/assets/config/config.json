@@ -1,6 +1,6 @@
 {
     "language": "en",
-    "API_HOST": "http://localhost:1337",
+    "API_HOST": "http://localhost:1337/admin",
     "R_CUSTOMER": "/customer",
     "R_PRODUCT": "/product",
     "R_ORDER": "/order",
@@ -22,16 +22,9 @@
         "PostProductView": "/post-product-viewed"
     },
     "ORDER": {
-        "GetCart": "/get-cart",
-        "GetOrder": "/get-order",
-        "UpdateCard": "/update-cart",
-        "UpdateOrder": "/update-order",
-        "PostOrder": "/post-order",
-        "LookUpOrder": "/look-up-order",
-        "GetOrderDetail": "/get-order-detail",
-        "GetOrderSuccess": "/get-order-success"
+        "GetAllOrder": "/get-all-order"
     },
-    "LOCATION": {
-        "GetLocaction": "/get-location"
+    "MARKETPLACE": {
+        "GetMarketplace": "/get-all-marketplace"
     }   
 }

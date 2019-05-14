@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { CustomerRoutingModule } from './customer-routing.module';
-import { CustomerComponent } from './customer/customer.component';
+import { ListCustomerComponent } from './list-customer/list-customer.component';
 
 @NgModule({
     imports: [
@@ -15,7 +15,7 @@ import { CustomerComponent } from './customer/customer.component';
         CustomerRoutingModule,
     ],
     declarations: [
-        CustomerComponent
+        ListCustomerComponent
     ],
     exports: [
     ]

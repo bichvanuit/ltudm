@@ -7,7 +7,6 @@ import { CommonRoutingModule } from './common-routing.module';
 
 import { PageErrorComponent } from './page-error/page-error.component';
 import { HomeComponent } from './home/home.component';
-import { ActiveAccountComponent } from './active-account/active-account.component';
 
 @NgModule({
     imports: [
@@ -19,7 +18,6 @@ import { ActiveAccountComponent } from './active-account/active-account.componen
     declarations: [
         PageErrorComponent,
         HomeComponent,
-        ActiveAccountComponent
     ],
     exports: [
     ]
