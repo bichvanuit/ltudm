@@ -68,12 +68,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpQueryStringService, 
     DataService,
     SettingService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (cf: ConfigUtilService) => function() {return cf.loadConfig(environment.configFile)},
-      deps: [ConfigUtilService],
-      multi: true
-    }
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: (cf: ConfigUtilService) => function() {return cf.loadConfig(environment.configFile)},
+    //   deps: [ConfigUtilService],
+    //   multi: true
+    // }
   ],
   bootstrap: [AppComponent]
 })

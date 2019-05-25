@@ -30,10 +30,10 @@ export class HomeComponent implements OnInit {
   ){ } 
   ngOnInit() {  
   
-    this.objConfig = this.configUtil.getConfig();
-    this.strApiProductHot = this.objConfig[API.R_PRODUCT] + this.objConfig[API.PRODUCT][API.PRODUCT_HOT];
-    this.strApiProductNew = this.objConfig[API.R_PRODUCT] + this.objConfig[API.PRODUCT][API.PRODUCT_NEW];
-    this.strApiProductNew = this.objConfig[API.R_PRODUCT] + this.objConfig[API.PRODUCT][API.PRODUCT_RECENT];
+    // this.objConfig = this.configUtil.getConfig();
+    // this.strApiProductHot = this.objConfig[API.R_PRODUCT] + this.objConfig[API.PRODUCT][API.PRODUCT_HOT];
+    // this.strApiProductNew = this.objConfig[API.R_PRODUCT] + this.objConfig[API.PRODUCT][API.PRODUCT_NEW];
+    // this.strApiProductNew = this.objConfig[API.R_PRODUCT] + this.objConfig[API.PRODUCT][API.PRODUCT_RECENT];
     
     this.api.getApi(this.strApiProductHot)
     .then(result => { this.products["hot"] = result.value });
